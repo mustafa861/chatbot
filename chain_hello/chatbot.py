@@ -6,16 +6,16 @@ from dotenv import load_dotenv, find_dotenv
 
 load_dotenv(find_dotenv())
 
-# Get API key from environment
-api_key = os.getenv("OPENAI_API_KEY")  # Change this to your actual API key environment variable
+
+gemini_api_key = os.getenv("GEMINI_API_KEY") 
 
 provider = AsyncOpenAI(
-    api_key=api_key,
-    base_url="https://api.openai.com/v1"  # Use OpenAI's base URL
+    api_key=gemini_api_key,
+    base_url="https://openrouter.ai/api/v1"  
 )
 
 model = OpenAIChatCompletionsModel(
-    model="gpt-3.5-turbo",  # Use a valid model name
+    model="google/gemini-2.0-flash-exp:free",  
     openai_client=provider,
 )
 
@@ -28,7 +28,6 @@ run_config = RunConfig(
 agent = Agent(
     instructions="You are a helpful assistant that can answer questions and help with tasks.",
     name="Panaversity support Agent",
-    run_config=run_config  # Add the run_config parameter
 )
 
 @cl.on_chat_start
